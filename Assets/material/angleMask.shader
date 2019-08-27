@@ -2,8 +2,11 @@
 {
     Properties
     {
-		_Split ("Split", Vector) = (0,1,0)
+		[PerRendererData] _Split ("Split", Vector) = (0,1,0)
+		[PerRendererData] _SplitDist ("Distance", Float) = 1
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        [PerRendererData] _Cam1 ("Cam1", 2D) = "magenta" {}
+        [PerRendererData] _Cam2 ("Cam2", 2D) = "cyan" {}
         _Color ("Tint", Color) = (1,1,1,1)
 
         _StencilComp ("Stencil Comparison", Float) = 8
@@ -76,6 +79,9 @@
             };
 
             sampler2D _MainTex;
+            sampler2D _Cam1;
+            sampler2D _Cam2;
+			float _SplitDist;
 			float4 _Split;
             fixed4 _Color;
             fixed4 _TextureSampleAdd;
@@ -98,10 +104,13 @@
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
-				// half4 screenPos = ComputeScreenPos(IN.vertex);
 				half2 origin = IN.texcoord.xy - half2(.5f, .5f);
-				clip (origin.x * _Split.y - origin.y * _Split.x);
+				float sval = (origin.x * _Split.y - origin.y * _Split.x);
+				float4 cam1 = tex2D(_Cam1, IN.texcoord);
+				float4 cam2 = tex2D(_Cam2, IN.texcoord);
+				float b = -.005 * _SplitDist * (_SplitDist - 2);
+				float4 tex = cam1 * step(sval, -b) + cam2 * step(-sval, -b);
+                half4 color = (tex + _TextureSampleAdd) * IN.color;
 
 				/*
                 #ifdef UNITY_UI_CLIP_RECT
