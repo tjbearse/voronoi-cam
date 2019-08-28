@@ -106,10 +106,10 @@
             {
 				half2 origin = IN.texcoord.xy - half2(.5f, .5f);
 				float sval = (origin.x * _Split.y - origin.y * _Split.x);
-				float4 cam1 = tex2D(_Cam1, IN.texcoord);
-				float4 cam2 = tex2D(_Cam2, IN.texcoord);
-				float b = -.005 * _SplitDist * (_SplitDist - 2);
-				float4 tex = cam1 * step(sval, -b) + cam2 * step(-sval, -b);
+				half4 cam1 = tex2D(_Cam1, IN.texcoord);
+				half4 cam2 = tex2D(_Cam2, IN.texcoord);
+				half b = .01 * _SplitDist * (_SplitDist - 2);
+				half4 tex = cam1 * step(sval, b) + cam2 * step(-sval, b) + half4(0,0,0,1) * step(-abs(sval), -b);
                 half4 color = (tex + _TextureSampleAdd) * IN.color;
 
 				/*
