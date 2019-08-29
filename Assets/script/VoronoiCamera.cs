@@ -18,6 +18,7 @@ public class VoronoiCamera : MonoBehaviour {
 	private Material camMask;
 
 	public Vector2 splitOffsetS = Vector2.zero; // screen space offset
+	public bool rotateOffset = true;
 
     void Start() {
 		float z = -Cam1.transform.position.z; // inflexible
@@ -41,24 +42,34 @@ public class VoronoiCamera : MonoBehaviour {
     void Update() {
 		Vector3 diff = (Player2.position - Player1.position);
 		float mag = diff.magnitude;
-		float lerp = Mathf.InverseLerp(2*extent*margin, 2*extent*margin + smoothDistance, mag);
+		float splitness = Mathf.InverseLerp(2*extent*margin, 2*extent*margin + smoothDistance, mag);
 
+		Vector2 rotSplit = splitOffsetS;
+		Quaternion rot = Quaternion.FromToRotation(Vector3.up, diff);
+		if (rotateOffset) {
+			rotSplit = rot * rotSplit;
+		}
+		rotSplit += new Vector2(.5f, .5f);
 		CamTexture.material.SetVector("_Split", Vector2.Perpendicular(diff.normalized));
-		CamTexture.material.SetFloat("_SplitDist", lerp);
-		CamTexture.material.SetVector("_Origin", splitOffsetS + new Vector2(.5f, .5f));
+		CamTexture.material.SetFloat("_SplitDist", splitness);
+		CamTexture.material.SetVector("_Origin", rotSplit);
 
 		baseOffset = Vector2.Scale(diff.normalized, camExtent/2);
-		splitOffsetWorld = Vector2.Scale(camExtent, splitOffsetS); // largely constant
+		if (rotateOffset) {
+			splitOffsetWorld = rot * Vector2.Scale(camExtent, splitOffsetS);
+		} else {
+			splitOffsetWorld = Vector2.Scale(camExtent, splitOffsetS);
+		}
 		alignedOffset = baseOffset.normalized * splitOffsetWorld.magnitude * Mathf.Cos(Mathf.Deg2Rad * Vector3.Angle(baseOffset, splitOffsetWorld));
 
 		Vector3 splitCamPos = baseOffset - alignedOffset;
-		Vector3 offset = Vector3.Lerp(diff/2, splitCamPos, lerp);
+		Vector3 offset = Vector3.Lerp(diff/2, splitCamPos, splitness);
 		Vector3 pos = Player1.transform.position + offset;
 		pos.z = Cam1.transform.position.z;
 		Cam1.transform.position = pos;
 
 		splitCamPos = -baseOffset - alignedOffset;
-		offset = Vector2.Lerp(-diff/2, splitCamPos, lerp);
+		offset = Vector2.Lerp(-diff/2, splitCamPos, splitness);
 		pos = Player2.transform.position + offset;
 		pos.z = Cam2.transform.position.z;
 		Cam2.transform.position = pos;
