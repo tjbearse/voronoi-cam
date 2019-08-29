@@ -505,7 +505,8 @@ MonoBehaviour:
   CamTexture: {fileID: 1144997002}
   margin: 0.75
   smoothDistance: 5
-  splitOffsetS: {x: 0, y: 0}
+  splitOffsetS: {x: 0, y: 0.25}
+  rotateOffset: 1
 --- !u!4 &752432486
 Transform:
   m_ObjectHideFlags: 0

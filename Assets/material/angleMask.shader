@@ -5,12 +5,14 @@
 		_Split ("Split", Vector) = (0,1,0)
 		_Origin ("Split Origin (screen coord)", Vector) = (.5, .5, 0)
 		_SplitDist ("Split Border Width", Float) = 1
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-        _Cam1 ("Cam1", 2D) = "magenta" {}
-        _Cam2 ("Cam2", 2D) = "cyan" {}
-        _Color ("Tint", Color) = (1,1,1,1)
+		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+		_Cam1 ("Cam1", 2D) = "magenta" {}
+		_Cam2 ("Cam2", 2D) = "cyan" {}
+		_Angle ("Split Angle", Float) = 0
+		_Reflect ("Split Reflection", Range(0, 1)) = 0
+		_Color ("Tint", Color) = (1,1,1,1)
 
-        _StencilComp ("Stencil Comparison", Float) = 8
+		_StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
         _StencilOp ("Stencil Operation", Float) = 0
         _StencilWriteMask ("Stencil Write Mask", Float) = 255
@@ -83,6 +85,8 @@
             sampler2D _Cam1;
             sampler2D _Cam2;
 			float _SplitDist;
+			float _Angle;
+			float _Reflect;
 			float4 _Split;
 			float4 _Origin;
             fixed4 _Color;
@@ -107,7 +111,11 @@
             fixed4 frag(v2f IN) : SV_Target
             {
 				half2 origin = IN.texcoord.xy - _Origin.xy;
-				float sval = (origin.x * _Split.y - origin.y * _Split.x);
+				half angle = _Angle * lerp(1, sign(-origin.x * _Split.x - origin.y * _Split.y), _Reflect);
+				half cosAngle = cos(angle);
+				half sinAngle = sin(angle);
+				half2 split = half2(cosAngle*_Split.x - sinAngle * _Split.y, sinAngle*_Split.x + cosAngle*_Split.y);
+				float sval = (origin.x * split.y - origin.y * split.x);
 				half4 cam1 = tex2D(_Cam1, IN.texcoord);
 				half4 cam2 = tex2D(_Cam2, IN.texcoord);
 				half b = .01 * _SplitDist * (_SplitDist - 2);

@@ -56,7 +56,7 @@ public class VoronoiCamera : MonoBehaviour {
 
 		baseOffset = Vector2.Scale(diff.normalized, camExtent/2);
 		if (rotateOffset) {
-			splitOffsetWorld = rot * Vector2.Scale(camExtent, splitOffsetS);
+			splitOffsetWorld = Vector2.Scale(camExtent, rot * splitOffsetS);
 		} else {
 			splitOffsetWorld = Vector2.Scale(camExtent, splitOffsetS);
 		}
