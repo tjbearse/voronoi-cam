@@ -2,11 +2,12 @@
 {
     Properties
     {
-		[PerRendererData] _Split ("Split", Vector) = (0,1,0)
-		[PerRendererData] _SplitDist ("Distance", Float) = 1
+		_Split ("Split", Vector) = (0,1,0)
+		_Origin ("Split Origin (screen coord)", Vector) = (.5, .5, 0)
+		_SplitDist ("Split Border Width", Float) = 1
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-        [PerRendererData] _Cam1 ("Cam1", 2D) = "magenta" {}
-        [PerRendererData] _Cam2 ("Cam2", 2D) = "cyan" {}
+        _Cam1 ("Cam1", 2D) = "magenta" {}
+        _Cam2 ("Cam2", 2D) = "cyan" {}
         _Color ("Tint", Color) = (1,1,1,1)
 
         _StencilComp ("Stencil Comparison", Float) = 8
@@ -83,6 +84,7 @@
             sampler2D _Cam2;
 			float _SplitDist;
 			float4 _Split;
+			float4 _Origin;
             fixed4 _Color;
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
@@ -104,7 +106,7 @@
 
             fixed4 frag(v2f IN) : SV_Target
             {
-				half2 origin = IN.texcoord.xy - half2(.5f, .5f);
+				half2 origin = IN.texcoord.xy - _Origin.xy;
 				float sval = (origin.x * _Split.y - origin.y * _Split.x);
 				half4 cam1 = tex2D(_Cam1, IN.texcoord);
 				half4 cam2 = tex2D(_Cam2, IN.texcoord);
