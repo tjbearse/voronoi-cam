@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mask
+  m_Name: mask basic
   m_Shader: {fileID: 4800000, guid: 3708f2be72d62451ca5fde11d5d801d1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -77,10 +77,10 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Reflect: 1
+    - _Reflect: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SplitDist: 0.48174095
+    - _SplitDist: 0
     - _SrcBlend: 1
     - _Stencil: 0
     - _StencilComp: 8
@@ -93,5 +93,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 0.9764151, b: 0.9764151, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Origin: {r: 0.37152743, g: 0.28553602, b: 0, a: 0}
-    - _Split: {r: 0.8578559, g: -0.51389027, b: 0, a: 0}
+    - _Origin: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Split: {r: 0.58160824, g: -0.813469, b: 0, a: 0}

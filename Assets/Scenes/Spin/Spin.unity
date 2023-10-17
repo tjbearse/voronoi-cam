@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -130,7 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 484783613}
   - component: {fileID: 484783612}
-  - component: {fileID: 484783614}
   - component: {fileID: 484783615}
   m_Layer: 0
   m_Name: magenta
@@ -153,6 +153,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -176,7 +177,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 2e1bd65568402475a9de57f2d4767b17, type: 3}
   m_Color: {r: 1, g: 0, b: 0.79383564, a: 1}
   m_FlipX: 0
@@ -202,25 +203,6 @@ Transform:
   m_Father: {fileID: 1872284552}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &484783614
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 484783611}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e397c69daf654459cbaafe6c97af8056, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1818360609 &484783615
 RotationConstraint:
   m_ObjectHideFlags: 0
@@ -420,6 +402,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -479,6 +462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 752432486}
   - component: {fileID: 752432485}
+  - component: {fileID: 752432487}
   m_Layer: 0
   m_Name: CameraArray
   m_TagString: Untagged
@@ -507,6 +491,7 @@ MonoBehaviour:
   smoothDistance: 5
   splitOffsetS: {x: 0, y: 0.25}
   rotateOffset: 1
+  superElipseN: 2
 --- !u!4 &752432486
 Transform:
   m_ObjectHideFlags: 0
@@ -523,6 +508,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &752432487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752432484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0921c0f688db74f639f0459fe53d7667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRate: 30
 --- !u!1 &789855051
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +614,6 @@ GameObject:
   m_Component:
   - component: {fileID: 989118607}
   - component: {fileID: 989118606}
-  - component: {fileID: 989118608}
   - component: {fileID: 989118609}
   m_Layer: 0
   m_Name: cyan
@@ -639,6 +636,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -662,7 +660,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 2e1bd65568402475a9de57f2d4767b17, type: 3}
   m_Color: {r: 0, g: 0.9607843, b: 0.87802106, a: 1}
   m_FlipX: 0
@@ -688,25 +686,6 @@ Transform:
   m_Father: {fileID: 1872284552}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &989118608
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989118605}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fa7490cf6472846358d4c4eaa0e37beb, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1818360609 &989118609
 RotationConstraint:
   m_ObjectHideFlags: 0
@@ -895,11 +874,10 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 8f3e189c82f564f0fb5cac5f4887911a, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Texture: {fileID: 8400000, guid: 1645e6456a2584775bf55c172622329b, type: 2}
   m_UVRect:
     serializedVersion: 2
